@@ -1,0 +1,179 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Upload</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+
+    <style>
+
+      .custom-nav-link,
+      .custom-nav-link:hover,
+      .custom-nav-link:focus {
+        color: white;
+      }
+
+      #navbar_bg {
+        background-color: rgb(80, 181, 235);
+      }
+
+      #heading {
+        font-weight: bold;
+        font-size: 22px;
+      }
+
+      .content{
+        font-family: 'Ubuntu', sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin-top: 25vh;
+      }
+
+      .btn{
+        background-color: blueviolet;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      nav{
+        font-family: 'Ubuntu', sans-serif;
+      }
+
+
+      .large-button {
+      margin-top: 10px;
+      width: 200px;
+      display: inline-block;
+      font-family: 'Ubuntu', sans-serif;
+      padding: 10px 25px;
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+      text-decoration: none;
+      background-color: rgb(80, 181, 235);
+      color: white;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .large-button:hover {
+      background-color: white;
+      color: rgb(80, 181, 235);
+      border-width: 2px;
+      border-color: rgb(80, 181, 235);
+    }
+    </style>
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary" id="navbar_bg">
+      <div class="container-fluid">
+        <a class="navbar-brand custom-nav-link" id="heading">KBSOFT</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a
+                class="nav-link active custom-nav-link"
+                aria-current="page"
+                href="{% url 'filemanager:upload' %}"
+                style="color: white; font-weight: bold;"
+                >Upload EDI File</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link custom-nav-link" href="{% url 'filemanager:dashboard' %}" style="color: white; font-weight: bold;">Dashboard</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="content">
+      <h1 class = "centreText" style = " font-weight: bold; font-size: 40px;">UPLOAD</h1>
+      <p class = "centreText" style="margin: 10px;">Upload the Purchase Order and the corresponding Invoice Electronic Data Interchange (EDI) file using the buttons below</p>
+    
+      <form method="POST" action="{% url 'filemanager:upload_file' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="myfile" class="large-button" id="select-file-button">Purchase Order</label>
+        <input type="file" name="myfile" id="myfile" style="display: none;">
+        <button type="submit" class="large-button" id="upload-button" style="display: none;">Upload File</button>
+      </form>
+      
+      <script>
+        document.getElementById("select-file-button").addEventListener("click", function() {
+          document.getElementById("myfile").click();
+        });
+      
+        document.getElementById("myfile").addEventListener("change", function() {
+          document.getElementById("select-file-button").style.display = "none";
+          document.getElementById("upload-button").style.display = "inline-block";
+        });
+
+        document.getElementById("upload-form").addEventListener("submit", function() {
+        document.getElementById("upload-form").reset();
+        document.getElementById("upload-button").style.display = "none";
+        document.getElementById("select-file-button").style.display = "inline-block";
+      });
+      </script>
+      
+
+      <form method="POST" action="{% url 'filemanager:upload_invoice' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="myfile-invoice" class="large-button" id="select-file-button-invoice">Invoice</label>
+        <input type="file" name="myfile-invoice" id="myfile-invoice" style="display: none;">
+        <button type="submit" class="large-button" id="upload-button-invoice" style="display: none;">Upload File</button>
+      </form>
+
+      <script>
+        document.getElementById("select-file-button-invoice").addEventListener("click", function() {
+          document.getElementById("myfile-invoice").click();
+        });
+
+        document.getElementById("myfile-invoice").addEventListener("change", function() {
+          document.getElementById("select-file-button-invoice").style.display = "none";
+          document.getElementById("upload-button-invoice").style.display = "inline-block";
+        });
+
+        document.getElementById("upload-form-invoice").addEventListener("submit", function() {
+          document.getElementById("upload-form-invoice").reset();
+          document.getElementById("upload-button-invoice").style.display = "none";
+          document.getElementById("select-file-button-invoice").style.display = "inline-block";
+        });
+      </script>
+      
+
+    
+    </div>
+
+
+    
+
+    
+    
+
+  </body>
+</html>

@@ -1,0 +1,156 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Upload</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+
+    <style>
+
+      .custom-nav-link,
+      .custom-nav-link:hover,
+      .custom-nav-link:focus {
+        color: white;
+      }
+
+      
+
+      .item-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .item-list li {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+      #navbar_bg {
+        background-color: rgb(80, 181, 235);
+      }
+
+      #heading {
+        font-weight: bold;
+        font-size: 22px;
+      }
+
+      .data-entry {
+        padding-left: 20px;
+        margin-bottom: 20px;
+        padding: 10px;
+        border: 1px solid #ccc;
+      }
+
+      .small-button {
+          font-size: 14px;
+          padding: 5px 10px;
+          background-color: #007bff;
+          color: #fff;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+      }
+
+      .small-button:hover {
+          background-color: #0056b3;
+      }
+
+      .list_backend{
+        margin-top: 20px;
+      }
+
+
+
+      .item_list{
+        font-family: 'Ubuntu', sans-serif;
+        background-color: rgb(189, 195, 198);
+        /* margin: 10px; */
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+        border-radius: 4px;
+        box-shadow: 20em;
+      }
+
+      .header_item_list{
+        font-family: 'Ubuntu', sans-serif;
+        /* font-weight: bold; */
+      }
+
+
+      nav{
+        font-family: 'Ubuntu', sans-serif;
+      }
+
+    </style>
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary" id="navbar_bg">
+      <div class="container-fluid">
+        <a class="navbar-brand custom-nav-link" id="heading">KBSoft</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a
+                class="nav-link active custom-nav-link"
+                aria-current="page"
+                href="{% url 'filemanager:upload' %}"
+                style="color: white; font-weight: bold;"
+                >Upload EDI File</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link custom-nav-link" href="{% url 'filemanager:dashboard' %}" style="color: white; font-weight: bold;">Dashboard</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+
+    <div class="list_backend">
+
+        <ul class="item-list" >
+            {% for item in items %}
+            <li class="item_list">
+                <span class="header_item_list"><strong>Purchase Order Number :</strong> {{ item.purchaseOrderNumber }} </span> 
+
+                <span class="header_item_list"><strong>Sender :</strong> {{ item.sender }}</span> 
+
+                <span class="header_item_list"><strong>Receiver :</strong> {{ item.receiver }}</span> 
+
+                
+                <span class="header_item_list"><strong>Date :</strong> {{ item.date }}</span> 
+
+            </li>
+
+            {% endfor %}
+        </ul>
+
+    </div>
+    
+    
+
+  </body>
+</html>
